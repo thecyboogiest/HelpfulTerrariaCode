@@ -1,0 +1,64 @@
+
+        public static void ShootProjectile(IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, int knockback, int owner, int numberOfProjectiles = 1, float angleInRadians = 0, float angleToAdd = 0, bool pingpong = false, bool dontModifyProjectileCount = false)
+        {
+            if (!dontModifyProjectileCount)
+                numberOfProjectiles += Main.player[owner].GetModPlayer<TerralithPlayer>().maxProjectileModifier;
+
+            if (numberOfProjectiles == 1)
+                Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, owner);
+            else if(numberOfProjectiles > 1)
+            {
+                if(angleToAdd == 0)
+                {
+                    for (int i = 0; i < numberOfProjectiles; i++)
+                    {
+                        Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, owner);
+                    }
+                }
+                else
+                {
+                    if (!pingpong)
+                    {
+                        float angleLog = angleToAdd;
+
+                        for (int i = 0; i < numberOfProjectiles; i++)
+                        {
+   
+
+                            Projectile.NewProjectileDirect(source, position, velocity * new Vector2((float)Math.Cos(MathAddSubtractRadiansWithDegrees(angleInRadians, angleLog)), (float)Math.Sin(MathAddSubtractRadiansWithDegrees(angleInRadians, angleLog))), type, damage, knockback, owner);
+                            angleLog += angleToAdd;
+                        }
+                    }
+                    else
+                    {
+                        float angleLogUp = angleToAdd;
+                        float angleLogDown = -angleToAdd;
+                        bool up = true;
+                        
+
+                        for (int i = 0; i < numberOfProjectiles; i++)
+                        {
+    
+
+                            if (up)
+                            {
+                                up = false;
+                                Projectile.NewProjectileDirect(source, position, velocity * new Vector2((float)Math.Cos(MathAddSubtractRadiansWithDegrees(angleInRadians, angleLogUp)), (float)Math.Sin(MathAddSubtractRadiansWithDegrees(angleInRadians, angleLogUp))), type, damage, knockback, owner);
+                                angleLogUp += angleToAdd;
+                            }
+                            else
+                            {
+                                up = true;
+
+                                Projectile.NewProjectileDirect(source, position, velocity * new Vector2((float)Math.Cos(MathAddSubtractRadiansWithDegrees(angleInRadians, angleLogDown)), (float)Math.Sin(MathAddSubtractRadiansWithDegrees(angleInRadians, angleLogDown))), type, damage, knockback, owner);
+                                angleLogDown -= angleToAdd;
+                            }
+                        }
+                    }
+                }
+
+                
+
+            }
+
+        }
