@@ -1,0 +1,33 @@
+      //Thank you Zeodexic for the code!!
+
+      //https://github.com/Zeodexic/tsorcRevamp/blob/main/Items/Weapons/Ranged/BlizzardBlaster.cs
+      //https://github.com/Zeodexic
+        
+        public static bool CheckPoint(Vector2 origin, int radius, Vector2 target, float angle, float width)
+        {
+            
+            float rotationToTarget = (target - origin).ToRotation();
+            
+            bool check = false;
+            if (Vector2.Distance(origin, target) <= (float)radius && rotationToTarget > angle - width)
+            {
+                if (rotationToTarget < angle + width)
+                {
+                    check = true;
+                }
+            }
+            
+            if (!check)
+            {
+                if (angle > rotationToTarget) angle -= (float)(2 * Math.PI);
+                else rotationToTarget -= (float)(2 * Math.PI);
+            }
+            if (Vector2.Distance(origin, target) <= (float)radius && rotationToTarget > angle - width)
+            {
+                if (rotationToTarget < angle + width)
+                {
+                    check = true;
+                }
+            }
+            return check;
+        }
