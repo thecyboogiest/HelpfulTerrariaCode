@@ -2,7 +2,7 @@ public static float MathAddSubtractRadiansWithDegrees(float angle, float n)
         {
             //N is in degrees
             float fullValue = MathHelper.ToDegrees(angle) + n;
-            Main.NewText(fullValue + " :: Before Calculations");
+
             if (fullValue < 180)
             {
                 if (fullValue > -180)
@@ -20,7 +20,6 @@ public static float MathAddSubtractRadiansWithDegrees(float angle, float n)
                 fullValue = -180 + (fullValue - 180);
             }
 
-            Main.NewText(fullValue + " :: After Calculations");
 
             if (fullValue < 180)
             {
