@@ -1,8 +1,7 @@
 
-        public static void ShootProjectile(IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, int knockback, int owner, int numberOfProjectiles = 1, float angleInRadians = 0, float angleToAdd = 0, bool pingpong = false, bool dontModifyProjectileCount = false)
+        public static void ShootProjectile(IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, int knockback, int owner, int numberOfProjectiles = 1, float angleInRadians = 0, float angleToAdd = 0, bool pingpong = false)
         {
-            if (!dontModifyProjectileCount)
-                numberOfProjectiles += Main.player[owner].GetModPlayer<TerralithPlayer>().maxProjectileModifier;
+
 
             if (numberOfProjectiles == 1)
                 Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, owner);
